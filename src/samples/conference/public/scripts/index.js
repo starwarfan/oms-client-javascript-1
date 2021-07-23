@@ -94,6 +94,12 @@ const runSocketIOSample = function() {
             }).then((
                 subscription) => {
                     subscirptionLocal = subscription;
+                    subscription.addEventListener('mute', () => {
+                        console.log('sub1 mute', subscription);
+                    });
+                    subscription.addEventListener('unmute', () => {
+                        console.log('sub1 unmute', subscription);
+                    });
                 $(`#${stream.id}`).get(0).srcObject = stream.mediaStream;
             });
         }
@@ -101,6 +107,12 @@ const runSocketIOSample = function() {
         conference.subscribe(stream)
         .then((subscription)=>{
             subscirptionLocal = subscription;
+            subscription.addEventListener('mute', () => {
+                console.log('sub2 mute', subscription);
+            });
+            subscription.addEventListener('unmute', () => {
+                console.log('sub2 unmute', subscription);
+            });
             let $video = $(`<video controls autoplay id=${stream.id} style="display:block" >this browser does not supported video tag</video>`);
            $video.get(0).srcObject = stream.mediaStream;
            $p.append($video);
